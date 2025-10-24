@@ -5,23 +5,23 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-# Prompt the user for PHP version if no command-line argument is provided
-echo "Select PHP version to install:"
-echo "1) 7.4"
-echo "2) 8.0"
-echo "3) 8.1"
-echo "4) 8.2"
-echo "5) 8.3"
-read -p "Enter the number corresponding to the PHP version (1-5): " choice
+PHP_VERSIONS=("7.2" "7.3" "7.4" "8.0" "8.1" "8.2" "8.3" "8.4")
 
-case $choice in
-    1) PHP_VERSION="7.4" ;;
-    2) PHP_VERSION="8.0" ;;
-    3) PHP_VERSION="8.1" ;;
-    4) PHP_VERSION="8.2" ;;
-    5) PHP_VERSION="8.3" ;;
-    *) PHP_VERSION="8.3" ;;
-esac
+echo "Select PHP version to install:"
+for i in "${!PHP_VERSIONS[@]}"; do
+    echo "$((i+1))) ${PHP_VERSIONS[$i]}"
+done
+
+read -p "Enter the number corresponding to the PHP version (1-${#PHP_VERSIONS[@]}): " choice
+
+if ! [[ "$choice" =~ ^[1-9][0-9]*$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt "${#PHP_VERSIONS[@]}" ]; then
+  echo "Invalid input. Please enter a number between 1 and ${#PHP_VERSIONS[@]}."
+  exit 1
+fi
+
+PHP_VERSION="${PHP_VERSIONS[$((choice-1))]}"
+
+echo "You selected PHP $PHP_VERSION"
 
 apt update
 apt -y upgrade
@@ -48,8 +48,8 @@ add-apt-repository -y ppa:ondrej/php
 apt update
 apt -y upgrade
 
-apt install -y  php${PHP_VERSION}-bcmath php${PHP_VERSION}-cli php${PHP_VERSION}-common php${PHP_VERSION}-curl php${PHP_VERSION}-gd php${PHP_VERSION}-imap php${PHP_VERSION}-intl php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-readline php${PHP_VERSION}-soap php${PHP_VERSION}-xml php${PHP_VERSION}-xmlrpc php${PHP_VERSION}-zip
-
+apt install -y php${PHP_VERSION}-bcmath php${PHP_VERSION}-cli php${PHP_VERSION}-common php${PHP_VERSION}-curl php${PHP_VERSION}-gd php${PHP_VERSION}-imap php${PHP_VERSION}-intl php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-readline php${PHP_VERSION}-soap php${PHP_VERSION}-xml php${PHP_VERSION}-xmlrpc php${PHP_VERSION}-zip
+apt install -y php${PHP_VERSION}-imagick
 apt -y install php${PHP_VERSION}-fpm
 
 systemctl enable php${PHP_VERSION}-fpm
