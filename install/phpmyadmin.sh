@@ -7,7 +7,7 @@ cd /usr/local/src
 rm -f phpMyAdmin-latest-all-languages.tar.gz
 wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
 tar xvf phpMyAdmin-latest-all-languages.tar.gz
-mv phpMyAdmin-5.2.2-all-languages /usr/serverok/phpmyadmin
+mv phpMyAdmin-5.2.3-all-languages /usr/serverok/phpmyadmin
 
 cd /usr/local/src
 wget https://files.phpmyadmin.net/phpMyAdmin/4.9.11/phpMyAdmin-4.9.11-all-languages.tar.gz
@@ -127,7 +127,7 @@ server {
         fastcgi_intercept_errors on;
         fastcgi_buffers 16 16k;
         fastcgi_buffer_size 32k;
-        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     }
 }
 
@@ -216,7 +216,7 @@ FLUSH PRIVILEGES;
 
 
 ALTER USER 'admin'@'%' IDENTIFIED BY 'NewPassword';
-
+ALTER USER 'panelsee_db'@'localhost' IDENTIFIED BY 'r9FW8QfZTRXn8L8a';
 
 
 =============================================================================
@@ -275,3 +275,9 @@ FLUSH PRIVILEGES;
 If you're changing your own password (the user you're currently logged in as), you can simply use:
 
 ALTER USER USER() IDENTIFIED BY 'new_password_here';
+
+show grants for 'admin'@'localhost';
+SHOW GRANTS FOR CURRENT_USER();
+
+GRANT SUPER ON *.* TO 'da_admin'@'localhost';
+FLUSH PRIVILEGES;

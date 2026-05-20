@@ -11,13 +11,12 @@ Apache
 wget https://raw.githubusercontent.com/serverok/server-setup/master/ubuntu/lamp.sh
 bash ./lamp.sh
 
+curl -s https://raw.githubusercontent.com/serverok/server-manager/master/install.sh | bash
+
 Apache
 wget https://raw.githubusercontent.com/serverok/server-setup/master/ubuntu/install-php.sh
 bash ./install-php.sh
 
-
-wget https://raw.githubusercontent.com/serverok/server-setup/master/ubuntu/nginx-php-mysql.sh
-bash ./nginx-php-mysql.sh
 
 
 wget https://raw.githubusercontent.com/serverok/server-setup/master/ubuntu/2-apache-php56-mysql.sh
@@ -72,3 +71,9 @@ curl -s https://raw.githubusercontent.com/serverok/server-manager/master/install
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 chmod 755 /usr/local/bin/wp
+
+cd /tmp
+wget https://cdn.serverok.in/sok-log-analyzer.tgz -O sok-log-analyzer.tgz 
+tar -xzvf sok-log-analyzer.tgz
+mv sok-log-analyzer /usr/local/bin/
+rm -f sok-log-analyzer.tgz

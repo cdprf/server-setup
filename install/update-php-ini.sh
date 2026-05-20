@@ -110,6 +110,10 @@ PHP_INI_PATHS=(
 /opt/alt/php74/etc/php.ini
 /opt/alt/php80/etc/php.ini
 /opt/alt/php81/etc/php.ini
+/opt/plesk/php/7.4/etc/php.ini
+/opt/plesk/php/8.3/etc/php.ini
+/opt/plesk/php/8.4/etc/php.ini
+/opt/plesk/php/8.5/etc/php.ini
 )
 
 for php_ini_path in ${PHP_INI_PATHS[@]}; do
